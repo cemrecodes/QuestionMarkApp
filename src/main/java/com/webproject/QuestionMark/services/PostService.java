@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.webproject.QuestionMark.Entities.Post;
@@ -11,6 +12,7 @@ import com.webproject.QuestionMark.Entities.User;
 import com.webproject.QuestionMark.Repos.PostRepository;
 import com.webproject.QuestionMark.requests.PostCreateRequest;
 import com.webproject.QuestionMark.requests.PostUpdateRequest;
+import com.webproject.QuestionMark.responses.LikeResponse;
 import com.webproject.QuestionMark.responses.PostResponse;
 
 @Service
@@ -18,12 +20,18 @@ public class PostService {
 
 	private PostRepository postRepository;
 	private UserService userService;
+	private LikeService likeService;
 		
 	public PostService(PostRepository postRepository, UserService userService) {
 		this.postRepository = postRepository;
 		this.userService = userService;
 	}
 
+	@Autowired
+	public void setLikeService(LikeService likeService) {
+		this.likeService = likeService;
+	}
+	
 	public List<PostResponse> getAllPosts(Optional<Long> userId) {
 		List<Post> list;
 		if(userId.isPresent()) { 
@@ -32,7 +40,9 @@ public class PostService {
 		else {
 			list = postRepository.findAll();
 		}
-		return list.stream().map(p -> new PostResponse(p)).collect(Collectors.toList());
+		return list.stream().map(p -> {
+			List<LikeResponse> likes = likeService.getAllLikesWithParam(Optional.ofNullable(null), Optional.of(p.getId()));
+			return new PostResponse(p, likes);}).collect(Collectors.toList());
 	}
 
 	public Post getOnePostById(Long postId) {

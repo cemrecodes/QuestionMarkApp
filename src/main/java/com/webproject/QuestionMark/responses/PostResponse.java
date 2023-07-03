@@ -1,7 +1,12 @@
 package com.webproject.QuestionMark.responses;
 
+import java.util.List;
+
 import com.webproject.QuestionMark.Entities.Post;
 
+import lombok.Data;
+
+@Data
 public class PostResponse {
 	
 	Long id;
@@ -9,13 +14,15 @@ public class PostResponse {
 	String userName;
 	String title;
 	String text;
+	List<LikeResponse> postLikes;
 	
-	public PostResponse(Post entity) {
+	public PostResponse(Post entity, List<LikeResponse> likes) {
 		this.id = entity.getId();
 		this.userId = entity.getUser().getId();
 		this.userName = entity.getUser().getUsername();
 		this.title = entity.getTitle();
 		this.text = entity.getText();
+		this.postLikes = likes;
 	}
 	
 	

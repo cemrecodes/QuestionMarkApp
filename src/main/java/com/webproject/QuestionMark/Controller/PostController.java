@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.webproject.QuestionMark.Entities.Post;
 import com.webproject.QuestionMark.requests.PostCreateRequest;
 import com.webproject.QuestionMark.requests.PostUpdateRequest;
+import com.webproject.QuestionMark.responses.PostResponse;
 import com.webproject.QuestionMark.services.PostService;
 
 @RestController
@@ -29,7 +30,7 @@ public class PostController {
 	}
 	
 	@GetMapping
-	public List<Post> getAllPosts(@RequestParam Optional<Long> userId){
+	public List<PostResponse> getAllPosts(@RequestParam Optional<Long> userId){
 		return postService.getAllPosts(userId);
 	}
 	
