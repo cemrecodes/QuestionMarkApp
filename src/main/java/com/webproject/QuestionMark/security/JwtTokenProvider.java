@@ -18,10 +18,10 @@ import io.jsonwebtoken.UnsupportedJwtException;
 @Component
 public class JwtTokenProvider {
 
-	@Value("${questionmarkapp.app.secret")
+	@Value("${questionmarkapp.app.secret}")
 	private String APP_SECRET;
 
-	@Value("${questionmarkapp.expires.in")
+	@Value("${questionmarkapp.expires.in}")
 	private long EXPIRES_IN;
 	
 	public String generateJwtToken(Authentication auth) {

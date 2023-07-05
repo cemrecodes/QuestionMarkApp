@@ -6,6 +6,6 @@ import com.webproject.QuestionMark.Entities.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	User findByUserName(String username);
+	User findByUsername(String username);
 
 }
