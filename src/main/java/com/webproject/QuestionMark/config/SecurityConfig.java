@@ -74,7 +74,7 @@ public class SecurityConfig {
     		.csrf().disable()
     		.exceptionHandling().authenticationEntryPoint(handler).and()
     		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-    		.authorizeRequests()
+    		.authorizeHttpRequests()
     		.requestMatchers(HttpMethod.GET, "/posts")
     		.permitAll()
     		.requestMatchers(HttpMethod.GET, "/comments")

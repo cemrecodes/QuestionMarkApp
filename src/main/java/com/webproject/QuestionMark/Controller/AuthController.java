@@ -41,7 +41,7 @@ public class AuthController {
 		Authentication auth = authenticationManager.authenticate(authToken);
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		String jwtToken = jwtTokenProvider.generateJwtToken(auth);
-		return "Bearer" + jwtToken;
+		return "Bearer " + jwtToken;
 		
 	}
 	
